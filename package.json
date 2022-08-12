@@ -1,0 +1,23 @@
+{
+  "name": "kb-duplicate-finder",
+  "version": "1.0.0",
+  "description": "",
+  "license": "BSD-3-Clause",
+  "private": true,
+  "scripts": {
+    "build": "d2-app-scripts build",
+    "start": "d2-app-scripts start --proxy https://lsis-ovc-dreams.org/kbtraining",
+    "test": "d2-app-scripts test",
+    "deploy": "d2-app-scripts deploy"
+  },
+  "devDependencies": {
+    "@dhis2/cli-app-scripts": "^10.0.0",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@dhis2/app-runtime": "^3.4.4",
+    "@hisptz/dhis2-utils": "^1.0.0-alpha.3",
+    "@hisptz/react-ui": "^1.0.62",
+    "@iapps/period-utilities": "^1.0.0-beta.7"
+  }
+}
