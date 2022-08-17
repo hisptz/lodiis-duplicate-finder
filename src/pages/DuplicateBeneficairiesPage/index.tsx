@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import CustomTableContainer from "../../components/CustomTableContainer";
 import DataSelectionContainer from "../../components/DataSelectionContainer";
+import { SelectionDimension } from "../../components/DataSelectionContainer/interfaces";
 import classes from "./DuplicateBeneficiariesPage.module.css";
 
 export function DuplicateBeneficiariesPage(): React.ReactElement {
+  const [dataSelection, setDataSelection] = useState<
+    SelectionDimension | undefined
+  >();
   return (
     <>
       <DataSelectionContainer
-        onChangeSelection={() => console.log("selection changed")}
+        selections={dataSelection}
+        onChangeSelection={(selections) => setDataSelection(selections)}
       />
       <CustomTableContainer />
     </>

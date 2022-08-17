@@ -7,7 +7,7 @@ export class DataSelectionHelpers {
     if (periodSelection) {
       var periodNames: string[] = map(periodSelection, (pe: any) => {
         var periodName =
-          pe.type == "RANGE"
+          pe.type === "RANGE"
             ? `${pe.startDate ?? ""} to  ${pe.endDate ?? ""}`
             : (pe.name as string) ?? "";
         return periodName;
