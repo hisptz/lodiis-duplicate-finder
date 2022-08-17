@@ -6,6 +6,7 @@ import { DataSelectionContainerProps } from "./interfaces";
 import { OrgUnitSelectorModal, PeriodSelectorModal } from "@hisptz/react-ui";
 import { isEmpty } from "lodash";
 import { OrgUnitSelection } from "@hisptz/dhis2-utils";
+import { DataSelectionHelpers } from "../../helpers/DataSelectionHelpers";
 
 const orgUnitModalProps: Record<string, any> = {
   searchable: true,
@@ -34,14 +35,12 @@ export default function DataSelectionContainer({
     };
 
   const onPeriodChange = (period: any) => {
-    console.log(period);
     if (!isEmpty(period)) {
       onChangeSelection({ ...selections, periods: period });
     }
   };
 
   const onOrgUnitChange = (orgUnit: OrgUnitSelection) => {
-    console.log(orgUnit);
     if (!isEmpty(orgUnit.orgUnits)) {
       onChangeSelection({ ...selections, orgUnit });
     }
@@ -59,13 +58,18 @@ export default function DataSelectionContainer({
                 <DataSelection
                   onChangeSelection={() => onDataSelectionChange("orgUnit")}
                   label="Select Organisation Unit"
+                  value={DataSelectionHelpers.getOrgUnitStringLabel(
+                    selections?.orgUnit ?? {}
+                  )}
                 />
               </div>
               <div className={classes["selection-item"]}>
                 <DataSelection
                   onChangeSelection={() => onDataSelectionChange("period")}
                   label="Select Period"
-                  value="This Month"
+                  value={DataSelectionHelpers.getPeriodStringLabel(
+                    selections?.periods ?? []
+                  )}
                 />
               </div>
             </div>
