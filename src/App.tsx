@@ -5,7 +5,9 @@ import DataSelectionContainer from "./components/DataSelectionContainer";
 
 const MyApp = () => (
   <div className={classes.container}>
-    <DataSelectionContainer />
+    <DataSelectionContainer
+      onChangeSelection={() => console.log("selection changed")}
+    />
     <CustomTableContainer />
   </div>
 );

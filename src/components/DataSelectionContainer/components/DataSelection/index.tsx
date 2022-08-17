@@ -7,13 +7,13 @@ import classes from "./DataSelection.module.css";
 export default function DataSelection({
   value,
   label,
-  onSelectionChange,
+  onChangeSelection,
 }: DataSelectionProps): React.ReactElement {
   return (
     <div className={classes["selection-container"]}>
       <div className={classes["selection-label"]}>{i18n.t(label)}</div>
       <div
-        onClick={onSelectionChange}
+        onClick={onChangeSelection}
         className={classes["selection-value-container"]}
       >
         <div className={classes["column"]}></div>
