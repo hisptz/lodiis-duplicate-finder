@@ -1,0 +1,27 @@
+.selection-container {
+    padding: 16px;
+    background-color: #E0E0E0E0;
+    border-radius: 8px;
+    min-width: 20vw;
+}
+
+.selection-label {
+    font-size : 1rem;
+}
+
+.selection-value-container {
+    display: flex;
+    margin-top: 1vw;
+    height: 4vh;
+}
+
+.column {
+    height: 100%;
+    width: .5rem;
+    background-color: #2c6693;
+}
+
+.selection-value {
+    align-self: center;
+    margin-left: .5vw;
+}

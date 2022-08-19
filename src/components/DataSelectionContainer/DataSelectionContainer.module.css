@@ -1,0 +1,13 @@
+.container {
+    margin-bottom: 8px;
+}
+
+.selection-container-contents {
+    padding: 8px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.selection-item {
+    margin-right: 1vw;
+}
