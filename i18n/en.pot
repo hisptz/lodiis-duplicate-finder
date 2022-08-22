@@ -5,8 +5,14 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-08-20T13:53:08.124Z\n"
-"PO-Revision-Date: 2022-08-20T13:53:08.124Z\n"
+"POT-Creation-Date: 2022-08-22T08:29:18.687Z\n"
+"PO-Revision-Date: 2022-08-22T08:29:18.687Z\n"
+
+msgid "Duplicate Beneficiaries in"
+msgstr "Duplicate Beneficiaries in"
+
+msgid "Select Program and Organisation unit above"
+msgstr "Select Program and Organisation unit above"
 
 msgid "Select Program"
 msgstr "Select Program"
