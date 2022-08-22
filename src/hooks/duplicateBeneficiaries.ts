@@ -9,7 +9,8 @@ import {
   TRACKED_ENTITY_INSTANCE_QUERY,
 } from "../constants";
 import { TrackedEntityInstance } from "../interfaces";
-import { teiPageSize } from "../constants/pagination.constant";
+import { teiPageSize } from "../constants/pagination.constants";
+import { evaluateDuplicateBeneficiaries } from "../helpers/DuplicateBeneficiariesHelper";
 
 export function useDuplicateBeneficiaries(
   programId: string,
@@ -62,7 +63,7 @@ export function useDuplicateBeneficiaries(
 
   useEffect(() => {
     async function fetchData() {
-      var trackedEntityInstances: TrackedEntityInstance[] = [];
+      var duplicateTrackedEntityInstances: any[] = [];
       try {
         setLoading(true);
         engine
@@ -83,7 +84,9 @@ export function useDuplicateBeneficiaries(
                 }
               );
               teiLists = flattenDeep(teiLists);
-              setData(trackedEntityInstances);
+              duplicateTrackedEntityInstances =
+                evaluateDuplicateBeneficiaries(teiLists);
+              setData(duplicateTrackedEntityInstances);
             },
             (error: any) => {
               setError(error);

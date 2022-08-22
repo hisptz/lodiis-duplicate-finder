@@ -1,5 +1,5 @@
 import { map } from "lodash";
-import { teiPageSize } from "./pagination.constant";
+import { teiPageSize } from "./pagination.constants";
 
 const excludedPrograms = (): string[] =>
   map(["uzE2gHz6neQ"], (program: string) => `id:ne:${program}`);
@@ -45,7 +45,7 @@ export const TRACKED_ENTITY_INSTANCE_QUERY = {
         "orgUnit",
         "created",
         "attributes[attribute,value]",
-        "enrollments[enrollmentDate,events[event,eventDate]]",
+        "enrollments[enrollmentDate,orgUnitName,events[event,eventDate]]",
       ],
     }),
   },

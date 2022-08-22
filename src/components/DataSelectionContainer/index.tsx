@@ -6,8 +6,8 @@ import { DataSelectionContainerProps, Program } from "./interfaces";
 import { OrgUnitSelectorModal } from "@hisptz/react-ui";
 import { isEmpty } from "lodash";
 import { OrgUnitSelection } from "@hisptz/dhis2-utils";
-import { DataSelectionHelpers } from "../../helpers/DataSelectionHelpers";
 import ProgramSelection from "./components/ProgramSelection";
+import { getOrgUnitStringLabel } from "../../helpers/DataSelectionHelpers";
 
 const orgUnitModalProps: Record<string, any> = {
   searchable: true,
@@ -60,9 +60,7 @@ export default function DataSelectionContainer({
                 <DataSelection
                   onChangeSelection={() => onDataSelectionChange("orgUnit")}
                   label="Select Organisation Unit"
-                  value={DataSelectionHelpers.getOrgUnitStringLabel(
-                    selections?.orgUnit ?? {}
-                  )}
+                  value={getOrgUnitStringLabel(selections?.orgUnit ?? {})}
                 />
               </div>
             </div>

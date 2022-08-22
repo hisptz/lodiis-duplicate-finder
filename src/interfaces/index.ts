@@ -8,6 +8,7 @@ export interface Event {
 }
 export interface Enrollment {
   enrollmentDate: string;
+  orgUnitName: string;
   events: Event[];
 }
 export interface TrackedEntityInstance {
