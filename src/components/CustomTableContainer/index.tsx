@@ -1,8 +1,9 @@
 import React from "react";
 import i18n from "@dhis2/d2-i18n";
-import { Tag } from "@dhis2/ui";
+
 import { SelectionDimension } from "../DataSelectionContainer/interfaces";
 import classes from "./CustomTableContainer.module.css";
+import CustomTable from "./components/CustomTable";
 
 export default function CustomTableContainer(
   selectionDimension: SelectionDimension | undefined
@@ -14,13 +15,7 @@ export default function CustomTableContainer(
       selectionDimension.program ? (
         <div>
           <div className={classes["center"]}>
-            <Tag maxWidth="90%">
-              {selectionDimension.program.displayName}{" "}
-              {i18n.t("Duplicate Beneficiaries in")}{" "}
-              {selectionDimension.orgUnit.orgUnits
-                ?.map((ou) => ou.displayName)
-                .join(", ")}
-            </Tag>
+            <CustomTable {...selectionDimension}></CustomTable>
           </div>
         </div>
       ) : (
