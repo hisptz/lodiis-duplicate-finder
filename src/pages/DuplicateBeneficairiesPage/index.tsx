@@ -14,7 +14,7 @@ export function DuplicateBeneficiariesPage(): React.ReactElement {
         selections={dataSelection}
         onChangeSelection={(selections) => setDataSelection(selections)}
       />
-      <CustomTableContainer />
+      <CustomTableContainer {...dataSelection} />
     </>
   );
 }
