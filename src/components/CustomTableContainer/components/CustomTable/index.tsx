@@ -14,7 +14,7 @@ import {
 import { keys, values, capitalize, map, camelCase } from "lodash";
 
 import { SelectionDimension } from "../../../DataSelectionContainer/interfaces";
-import { useDuplicateBeneficiaries } from "../../../../hooks/DuplicateBeneficiaries";
+import { useDuplicateBeneficiaries } from "../../../../hooks/duplicateBeneficiaries";
 
 function getTableHeaders(data: any[]): string[] {
   return data.length > 0

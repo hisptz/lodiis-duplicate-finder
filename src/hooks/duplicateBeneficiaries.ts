@@ -10,7 +10,7 @@ import {
 } from "../constants";
 import { TrackedEntityInstance } from "../interfaces";
 import { teiPageSize } from "../constants/pagination.constants";
-import { evaluateDuplicateBeneficiaries } from "../helpers/DuplicateBeneficiariesHelper";
+import { evaluateDuplicateBeneficiaries } from "../helpers/duplicateBeneficiariesHelper";
 
 export function useDuplicateBeneficiaries(
   programId: string,
