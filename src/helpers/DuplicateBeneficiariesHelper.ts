@@ -160,11 +160,11 @@ export function getSanitizedBeneficiariesList(
       trackedEntityInstance.enrollments
     );
     sanitizedBeneficiaries.push({
+      ...beneficiaryData,
       ...{
         "DHIS2 Reference": dhis2Reference,
         [DUPLICATE_KEY_ATTRIBUTE]: duplicationKey,
       },
-      ...beneficiaryData,
     });
   }
   return sanitizedBeneficiaries;

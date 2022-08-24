@@ -3,6 +3,7 @@ export const DUPLICATION_IDENTIFICATION_KEYS = [
   "rSP9c21JsfC",
   "beneficiary_age",
   "VJiWumvINR6",
+  "vIX4GTSCX4P",
   "community_council_name",
   "tNdoR0jYr7R",
 ];
@@ -26,6 +27,10 @@ export const DUPLICATION_ATTRIBUTES_CONSTANT = [
   },
   {
     id: "VJiWumvINR6",
+    label: "Sex",
+  },
+  {
+    id: "vIX4GTSCX4P",
     label: "Sex",
   },
   {

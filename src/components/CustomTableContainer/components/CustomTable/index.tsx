@@ -15,6 +15,7 @@ import { keys, values, capitalize, map, camelCase } from "lodash";
 
 import { SelectionDimension } from "../../../DataSelectionContainer/interfaces";
 import { useDuplicateBeneficiaries } from "../../../../hooks/duplicateBeneficiaries";
+import classes from "./CustomTable.module.css";
 
 function getTableHeaders(data: any[]): string[] {
   return data.length > 0
@@ -51,12 +52,13 @@ export default function CustomTable(
 
       {loading && loading === true && <div>loading...</div>}
       {data && loading === false && (
-        <div className="mt-10">
+        <div className={classes["table-container"]}>
           <Table>
             <TableHead>
-              <TableRowHead>
+              <TableRowHead fixed>
                 {getTableHeaders(data).map((header: string) => (
                   <TableCellHead
+                    className={classes["table-header"]}
                     dataTest={`${getHeaderKey(header)}-column`}
                     key={`${getHeaderKey(header)}-column-header`}
                   >
