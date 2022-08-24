@@ -26,9 +26,10 @@
     "@hisptz/dhis2-utils": "^1.0.0-alpha.3",
     "@hisptz/react-ui": "^1.0.63",
     "@iapps/period-utilities": "^1.0.0-beta.7",
-    "async": "^3.2.4",
+    "async-es": "^3.2.4",
     "bootstrap": "^5.2.0",
     "lodash": "^4.17.21",
-    "luxon": "^3.0.1"
+    "luxon": "^3.0.1",
+    "xlsx": "^0.18.5"
   }
 }

@@ -2,20 +2,15 @@ import React, { useState } from "react";
 import { Card, Box } from "@dhis2/ui";
 import DataSelection from "./components/DataSelection";
 import classes from "./DataSelectionContainer.module.css";
-import { DataSelectionContainerProps } from "./interfaces";
-import { OrgUnitSelectorModal, PeriodSelectorModal } from "@hisptz/react-ui";
+import { DataSelectionContainerProps, Program } from "./interfaces";
+import { OrgUnitSelectorModal } from "@hisptz/react-ui";
 import { isEmpty } from "lodash";
 import { OrgUnitSelection } from "@hisptz/dhis2-utils";
-import { DataSelectionHelpers } from "../../helpers/DataSelectionHelpers";
+import ProgramSelection from "./components/ProgramSelection";
+import { getOrgUnitStringLabel } from "../../helpers/DataSelectionHelpers";
 
 const orgUnitModalProps: Record<string, any> = {
   searchable: true,
-};
-const periodModalProps: Record<string, any> = {
-  singleSelection: true,
-  enableDateRange: true,
-  excludeRelativePeriods: true,
-  excludedPeriodTypes: ["Weekly"],
 };
 
 export default function DataSelectionContainer({
@@ -23,7 +18,7 @@ export default function DataSelectionContainer({
   selections,
 }: DataSelectionContainerProps): React.ReactElement {
   const [ModalOpen, setModalOpen] = useState<string | undefined>();
-  const { orgUnit: orgUnitSelection, periods: periodSelection } =
+  const { orgUnit: orgUnitSelection, program: programSelection } =
     selections ?? {};
 
   const onCloseModal = () => setModalOpen(undefined);
@@ -34,9 +29,9 @@ export default function DataSelectionContainer({
       onCloseModal();
     };
 
-  const onPeriodChange = (period: any) => {
-    if (!isEmpty(period)) {
-      onChangeSelection({ ...selections, periods: period });
+  const onProgramChange = (program: Program) => {
+    if (!isEmpty(program)) {
+      onChangeSelection({ ...selections, program });
     }
   };
 
@@ -56,20 +51,16 @@ export default function DataSelectionContainer({
             <div className={classes["selection-container-contents"]}>
               <div className={classes["selection-item"]}>
                 <DataSelection
-                  onChangeSelection={() => onDataSelectionChange("orgUnit")}
-                  label="Select Organisation Unit"
-                  value={DataSelectionHelpers.getOrgUnitStringLabel(
-                    selections?.orgUnit ?? {}
-                  )}
+                  onChangeSelection={() => onDataSelectionChange("program")}
+                  label="Select Program"
+                  value={selections?.program?.displayName ?? ""}
                 />
               </div>
               <div className={classes["selection-item"]}>
                 <DataSelection
-                  onChangeSelection={() => onDataSelectionChange("period")}
-                  label="Select Period"
-                  value={DataSelectionHelpers.getPeriodStringLabel(
-                    selections?.periods ?? []
-                  )}
+                  onChangeSelection={() => onDataSelectionChange("orgUnit")}
+                  label="Select Organisation Unit"
+                  value={getOrgUnitStringLabel(selections?.orgUnit ?? {})}
                 />
               </div>
             </div>
@@ -77,16 +68,7 @@ export default function DataSelectionContainer({
         </Box>
       </div>
 
-      {ModalOpen === "period" && (
-        <PeriodSelectorModal
-          {...periodModalProps}
-          position="middle"
-          selectedPeriods={periodSelection}
-          onClose={onCloseModal}
-          hide={ModalOpen !== "period"}
-          onUpdate={onModalSelectionChange(onPeriodChange)}
-        />
-      )}
+      {/* Selection modals */}
       {ModalOpen === "orgUnit" && (
         <OrgUnitSelectorModal
           {...orgUnitModalProps}
@@ -95,6 +77,15 @@ export default function DataSelectionContainer({
           onClose={onCloseModal}
           hide={ModalOpen !== "orgUnit"}
           onUpdate={onModalSelectionChange(onOrgUnitChange)}
+        />
+      )}
+      {ModalOpen === "program" && (
+        <ProgramSelection
+          position="middle"
+          value={programSelection?.id}
+          onClose={onCloseModal}
+          hide={ModalOpen !== "program"}
+          onUpdate={onModalSelectionChange(onProgramChange)}
         />
       )}
     </div>
