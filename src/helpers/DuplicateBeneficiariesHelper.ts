@@ -135,7 +135,8 @@ function getBeneficiaryDetails(
     } else {
       value = getAttributeValueById(attributes, attributeReference.id);
     }
-    beneficiaryData[attributeReference.label] = value;
+    beneficiaryData[attributeReference.label] =
+      beneficiaryData[attributeReference.label] ?? value;
   }
   return beneficiaryData;
 }

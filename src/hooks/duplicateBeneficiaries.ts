@@ -27,6 +27,7 @@ export function useDuplicateBeneficiaries(
   const [loading, setLoading] = useState<boolean>(false);
 
   const engine = useDataEngine();
+  const controller = new AbortController();
 
   var ou = map(
     organisationUnits,
@@ -61,6 +62,7 @@ export function useDuplicateBeneficiaries(
           program: programId,
           page,
         },
+        signal: controller.signal,
       });
       trackedEntityInstances = data
         ? [
@@ -76,13 +78,18 @@ export function useDuplicateBeneficiaries(
     return trackedEntityInstances;
   };
 
+  const resetBeneficiaryList = () => {
+    setLoading(false);
+    setDownloadProgress(null);
+    setProgressMessage(null);
+  };
+
   useEffect(() => {
     async function fetchData() {
-      setDownloadProgress(null);
-      setProgressMessage(null);
+      setLoading(true);
+      setData(null);
       var duplicateTrackedEntityInstances: any[] = [];
       try {
-        setLoading(true);
         setProgressMessage(i18n.t("Discovering online beneficiaries..."));
         await engine
           .query(DUPLICATE_BENEFICIARIES_PAGES_QUERY, {
@@ -131,13 +138,17 @@ export function useDuplicateBeneficiaries(
       } catch (error: any) {
         setError(error);
       } finally {
-        setLoading(false);
-        setDownloadProgress(null);
-        setProgressMessage(null);
+        resetBeneficiaryList();
       }
     }
 
-    fetchData();
+    setTimeout(() => {
+      fetchData();
+    }, 500);
+
+    return () => {
+      controller.abort();
+    };
   }, [programId, organisationUnits]);
 
   return { data, error, loading, progressMessage, downloadProgress };
