@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import i18n from "@dhis2/d2-i18n";
 import {
   Tag,
@@ -6,14 +6,14 @@ import {
   TableBody,
   TableCell,
   TableCellHead,
-  TableFoot,
   TableHead,
   TableRow,
   TableRowHead,
   CircularLoader,
   NoticeBox,
+  Pagination,
 } from "@dhis2/ui";
-import { keys, values, capitalize, map, camelCase } from "lodash";
+import { keys, values, capitalize, map, camelCase, chunk } from "lodash";
 
 import { SelectionDimension } from "../../../DataSelectionContainer/interfaces";
 import { useDuplicateBeneficiaries } from "../../../../hooks/duplicateBeneficiaries";
@@ -41,6 +41,24 @@ export default function CustomTable(
       selectionDimension?.program?.id ?? "",
       selectionDimension?.orgUnit?.orgUnits ?? []
     );
+
+  const [page, setPage] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(50);
+
+  const getTotalPages = (customSize?: number) =>
+    Math.ceil((data ?? []).length / (customSize ?? pageSize));
+
+  const getPaginatedData = (): any[] => {
+    let currentPage = page;
+    const totalPages = getTotalPages();
+
+    if (totalPages < currentPage) {
+      currentPage = (data ?? []).length;
+    } else if (totalPages < 1) {
+      currentPage = 1;
+    }
+    return chunk(data, pageSize)[page - 1];
+  };
 
   return (
     <div>
@@ -88,34 +106,53 @@ export default function CustomTable(
             </div>
           </>
         ) : data && data.length > 0 ? (
-          <div className={classes["table-container"]}>
-            <Table>
-              <TableHead>
-                <TableRowHead fixed>
-                  {getTableHeaders(data).map((header: string) => (
-                    <TableCellHead
-                      className={classes["table-header"]}
-                      dataTest={`${getHeaderKey(header)}-column`}
-                      key={`${getHeaderKey(header)}-column-header`}
-                    >
-                      {header}
-                    </TableCellHead>
-                  ))}
-                </TableRowHead>
-              </TableHead>
-              <TableBody>
-                {getTableDataRows(data).map((dataRow, index) => (
-                  <TableRow key={`row-${index}`}>
-                    {dataRow.map((tableDataItem, index) => (
-                      <TableCell key={`row-${index}-cell-${index}`}>
-                        {tableDataItem}
-                      </TableCell>
+          <>
+            <div className={classes["table-container"]}>
+              <Table>
+                <TableHead>
+                  <TableRowHead fixed>
+                    {getTableHeaders(data).map((header: string) => (
+                      <TableCellHead
+                        className={classes["table-header"]}
+                        dataTest={`${getHeaderKey(header)}-column`}
+                        key={`${getHeaderKey(header)}-column-header`}
+                      >
+                        {header}
+                      </TableCellHead>
                     ))}
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
+                  </TableRowHead>
+                </TableHead>
+                <TableBody>
+                  {getTableDataRows(getPaginatedData()).map(
+                    (dataRow, index) => (
+                      <TableRow key={`row-${index}`}>
+                        {dataRow.map((tableDataItem, index) => (
+                          <TableCell key={`row-${index}-cell-${index}`}>
+                            {tableDataItem}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    )
+                  )}
+                </TableBody>
+              </Table>
+            </div>
+            <div style={{ width: "100%", marginTop: "8px" }}>
+              <Pagination
+                onPageChange={(pageNumber: number) => setPage(pageNumber)}
+                onPageSizeChange={(size: number) => {
+                  if (getTotalPages(size) < page) {
+                    setPage(1);
+                  }
+                  setPageSize(size);
+                }}
+                page={page}
+                pageCount={getTotalPages()}
+                pageSize={pageSize}
+                total={data.length}
+              />
+            </div>
+          </>
         ) : data && data.length == 0 ? (
           <div>
             {i18n.t("There are no duplicates found for the current selections")}
