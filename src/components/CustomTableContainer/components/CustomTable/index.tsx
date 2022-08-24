@@ -11,6 +11,7 @@ import {
   TableRow,
   TableRowHead,
   CircularLoader,
+  NoticeBox,
 } from "@dhis2/ui";
 import { keys, values, capitalize, map, camelCase } from "lodash";
 
@@ -52,67 +53,83 @@ export default function CustomTable(
         maxWidth="90%"
       />
 
-      {loading && (
-        <>
-          <div>
-            <div className="w-100">
-              <div
-                style={{
-                  width: "100%",
-                  height: "50%",
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  minHeight: 250,
-                }}
-              >
-                <div>
-                  <CircularLoader small />
-                </div>
-                <div style={{ marginTop: "16px" }}>
-                  {progressMessage && (
-                    <span>
-                      {progressMessage}{" "}
-                      {downloadProgress && <span>{downloadProgress}%</span>}
-                    </span>
-                  )}
+      <div
+        style={{
+          marginTop: "16px",
+        }}
+      >
+        {loading == true ? (
+          <>
+            <div>
+              <div className="w-100">
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                  }}
+                >
+                  <div>
+                    <CircularLoader small />
+                  </div>
+                  <div style={{ marginTop: "16px" }}>
+                    {progressMessage && (
+                      <span>
+                        {progressMessage}{" "}
+                        {downloadProgress && downloadProgress > 0 && (
+                          <span>{downloadProgress}%</span>
+                        )}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </>
-      )}
-      {data && !loading && (
-        <div className={classes["table-container"]}>
-          <Table>
-            <TableHead>
-              <TableRowHead fixed>
-                {getTableHeaders(data).map((header: string) => (
-                  <TableCellHead
-                    className={classes["table-header"]}
-                    dataTest={`${getHeaderKey(header)}-column`}
-                    key={`${getHeaderKey(header)}-column-header`}
-                  >
-                    {header}
-                  </TableCellHead>
-                ))}
-              </TableRowHead>
-            </TableHead>
-            <TableBody>
-              {getTableDataRows(data).map((dataRow, index) => (
-                <TableRow key={`row-${index}`}>
-                  {dataRow.map((tableDataItem, index) => (
-                    <TableCell key={`row-${index}-cell-${index}`}>
-                      {tableDataItem}
-                    </TableCell>
+          </>
+        ) : data && data.length > 0 ? (
+          <div className={classes["table-container"]}>
+            <Table>
+              <TableHead>
+                <TableRowHead fixed>
+                  {getTableHeaders(data).map((header: string) => (
+                    <TableCellHead
+                      className={classes["table-header"]}
+                      dataTest={`${getHeaderKey(header)}-column`}
+                      key={`${getHeaderKey(header)}-column-header`}
+                    >
+                      {header}
+                    </TableCellHead>
                   ))}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-      )}
+                </TableRowHead>
+              </TableHead>
+              <TableBody>
+                {getTableDataRows(data).map((dataRow, index) => (
+                  <TableRow key={`row-${index}`}>
+                    {dataRow.map((tableDataItem, index) => (
+                      <TableCell key={`row-${index}-cell-${index}`}>
+                        {tableDataItem}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        ) : data && data.length == 0 ? (
+          <div>
+            {i18n.t("There are no duplicates found for the current selections")}
+          </div>
+        ) : error ? (
+          <div className="w-100">
+            <NoticeBox error title={i18n.t("Failed to load beneficiaries")}>
+              {error}
+            </NoticeBox>
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
     </div>
   );
 }
