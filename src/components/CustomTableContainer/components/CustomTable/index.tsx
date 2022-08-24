@@ -12,6 +12,8 @@ import {
   CircularLoader,
   NoticeBox,
   Pagination,
+  ButtonStrip,
+  Button,
 } from "@dhis2/ui";
 import { keys, values, capitalize, map, camelCase, chunk } from "lodash";
 
@@ -33,9 +35,23 @@ function getHeaderKey(header: string): string {
   return camelCase(header);
 }
 
+async function onDownload(data: any[], fileName: string) {
+  const excel = await import("xlsx");
+  const workbook = excel.utils.book_new();
+  const worksheet = excel.utils.json_to_sheet(data);
+  excel.utils.book_append_sheet(workbook, worksheet, "Duplicate Beneficiaries");
+  excel.writeFile(workbook, `${fileName}.xlsx`);
+}
+
 export default function CustomTable(
   selectionDimension: SelectionDimension
 ): React.ReactElement {
+  const tableTitle = `${selectionDimension.program?.displayName} ${i18n.t(
+    "Duplicate Beneficiaries in"
+  )} ${selectionDimension.orgUnit?.orgUnits
+    ?.map((ou: any) => ou.displayName)
+    .join(", ")}`;
+
   const { data, loading, error, progressMessage, downloadProgress } =
     useDuplicateBeneficiaries(
       selectionDimension?.program?.id ?? "",
@@ -51,7 +67,6 @@ export default function CustomTable(
   const getPaginatedData = (): any[] => {
     let currentPage = page;
     const totalPages = getTotalPages();
-
     if (totalPages < currentPage) {
       currentPage = (data ?? []).length;
     } else if (totalPages < 1) {
@@ -62,15 +77,7 @@ export default function CustomTable(
 
   return (
     <div>
-      <Tag
-        children={`${selectionDimension.program?.displayName} ${i18n.t(
-          "Duplicate Beneficiaries in"
-        )} ${selectionDimension.orgUnit?.orgUnits
-          ?.map((ou: any) => ou.displayName)
-          .join(", ")}`}
-        maxWidth="90%"
-      />
-
+      <Tag children={tableTitle} maxWidth="90%" />
       <div
         style={{
           marginTop: "16px",
@@ -78,35 +85,44 @@ export default function CustomTable(
       >
         {loading == true ? (
           <>
-            <div>
-              <div className="w-100">
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                  }}
-                >
-                  <div>
-                    <CircularLoader small />
-                  </div>
-                  <div style={{ marginTop: "16px" }}>
-                    {progressMessage && (
-                      <span>
-                        {progressMessage}{" "}
-                        {downloadProgress && downloadProgress > 0 && (
-                          <span>{downloadProgress}%</span>
-                        )}
-                      </span>
-                    )}
-                  </div>
+            <div className="w-100">
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                }}
+              >
+                <div>
+                  <CircularLoader small />
+                </div>
+                <div style={{ marginTop: "16px" }}>
+                  {progressMessage && (
+                    <span>
+                      {progressMessage}{" "}
+                      {downloadProgress && downloadProgress > 0 && (
+                        <span>{downloadProgress}%</span>
+                      )}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
           </>
         ) : data && data.length > 0 ? (
           <>
+            <div className={classes["table-actions"]}>
+              <ButtonStrip end>
+                <Button
+                  name="Data download button"
+                  onClick={() => onDownload(data, tableTitle)}
+                  value="default"
+                >
+                  {i18n.t("Download")}
+                </Button>
+              </ButtonStrip>
+            </div>
             <div className={classes["table-container"]}>
               <Table>
                 <TableHead>

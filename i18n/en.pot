@@ -5,11 +5,14 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-08-24T14:50:41.559Z\n"
-"PO-Revision-Date: 2022-08-24T14:50:41.559Z\n"
+"POT-Creation-Date: 2022-08-24T16:03:51.507Z\n"
+"PO-Revision-Date: 2022-08-24T16:03:51.507Z\n"
 
 msgid "Duplicate Beneficiaries in"
 msgstr "Duplicate Beneficiaries in"
+
+msgid "Download"
+msgstr "Download"
 
 msgid "There are no duplicates found for the current selections"
 msgstr "There are no duplicates found for the current selections"
