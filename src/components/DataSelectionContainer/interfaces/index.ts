@@ -11,7 +11,12 @@ export interface DataSelectionContainerProps {
   selections?: SelectionDimension;
 }
 
+export interface Program {
+  id: string;
+  displayName: string;
+}
+
 export interface SelectionDimension {
   orgUnit?: OrgUnitSelection;
-  periods?: any[];
+  program?: Program;
 }
