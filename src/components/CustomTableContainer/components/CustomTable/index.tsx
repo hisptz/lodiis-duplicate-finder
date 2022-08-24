@@ -49,9 +49,9 @@ export default function CustomTable(
         maxWidth="90%"
       />
 
-      {loading && <div>loading...</div>}
-      {data && (
-        <div>
+      {loading && loading === true && <div>loading...</div>}
+      {data && loading === false && (
+        <div className="mt-10">
           <Table>
             <TableHead>
               <TableRowHead>

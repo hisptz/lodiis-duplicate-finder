@@ -19,7 +19,11 @@ export default function CustomTableContainer(
           </div>
         </div>
       ) : (
-        <div>{i18n.t("Select Program and Organisation unit above")}</div>
+        <div className={classes["center"]}>
+          {i18n.t(
+            "Select Program and Organisation unit above, to evaluate duplicates"
+          )}
+        </div>
       )}
     </div>
   );

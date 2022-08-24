@@ -7,6 +7,7 @@ import {
   sortBy,
   reverse,
   groupBy,
+  omitBy,
 } from "lodash";
 import {
   DUPLICATION_ATTRIBUTES_CONSTANT,
@@ -18,6 +19,8 @@ import {
   Event,
   TrackedEntityInstance,
 } from "../interfaces";
+
+const DUPLICATE_KEY_ATTRIBUTE = "Duplication Key";
 
 function getBeneficiaryAge(dob: string) {
   var ageDifMs = Date.now() - new Date(dob).getTime();
@@ -137,12 +140,10 @@ function getBeneficiaryDetails(
   return beneficiaryData;
 }
 
-export function evaluateDuplicateBeneficiaries(
+export function getSanitizedBeneficiariesList(
   trackedEntityInstances: TrackedEntityInstance[]
 ): any[] {
-  const duplicateBeneficiaries: any[] = [];
-  const beneficiaries: any[] = [];
-
+  const sanitizedBeneficiaries: any[] = [];
   for (var trackedEntityInstance of trackedEntityInstances) {
     const dhis2Reference = trackedEntityInstance.trackedEntityInstance;
     const ou =
@@ -158,17 +159,23 @@ export function evaluateDuplicateBeneficiaries(
       trackedEntityInstance.attributes,
       trackedEntityInstance.enrollments
     );
-    beneficiaries.push({
+    sanitizedBeneficiaries.push({
       ...{
         "DHIS2 Reference": dhis2Reference,
-        "Duplication Key": duplicationKey,
+        [DUPLICATE_KEY_ATTRIBUTE]: duplicationKey,
       },
       ...beneficiaryData,
     });
   }
+  return sanitizedBeneficiaries;
+}
 
-  const groupedBeneficiaries = groupBy(beneficiaries, "Duplication Key");
-
+export function evaluateDuplicateBeneficiaries(beneficiaries: any[]): any[] {
+  const duplicateBeneficiaries: any[] = [];
+  const groupedBeneficiaries = omitBy(
+    groupBy(beneficiaries, DUPLICATE_KEY_ATTRIBUTE),
+    (value: any[], key: string) => value.length < 2
+  );
   for (const key of keys(groupedBeneficiaries)) {
     const BeneficiaryList = groupedBeneficiaries[key];
     if (BeneficiaryList.length > 1) {

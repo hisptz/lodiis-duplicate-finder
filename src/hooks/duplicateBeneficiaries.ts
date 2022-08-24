@@ -10,7 +10,10 @@ import {
 } from "../constants";
 import { TrackedEntityInstance } from "../interfaces";
 import { teiPageSize } from "../constants/pagination.constants";
-import { evaluateDuplicateBeneficiaries } from "../helpers/duplicateBeneficiariesHelper";
+import {
+  evaluateDuplicateBeneficiaries,
+  getSanitizedBeneficiariesList,
+} from "../helpers/duplicateBeneficiariesHelper";
 
 export function useDuplicateBeneficiaries(
   programId: string,
@@ -76,16 +79,23 @@ export function useDuplicateBeneficiaries(
           .then(
             async (data: any) => {
               const { pager } = (data.query as any) ?? {};
-              var teiLists = await mapLimit(
+              var onlineBeneficiaries = await mapLimit(
                 getTrackedEntityInstancePages(pager.total ?? 0),
                 5,
                 async (page: number) => {
-                  return getTrackedEntityInstances(page);
+                  return getTrackedEntityInstances(page).then(
+                    (trackedEntityInstances: TrackedEntityInstance[]) => {
+                      // TODO evaluate progress
+                      var sanitizedBeneficiaries: any[] =
+                        getSanitizedBeneficiariesList(trackedEntityInstances);
+                      return sanitizedBeneficiaries;
+                    }
+                  );
                 }
               );
-              teiLists = flattenDeep(teiLists);
+              onlineBeneficiaries = flattenDeep(onlineBeneficiaries);
               duplicateTrackedEntityInstances =
-                evaluateDuplicateBeneficiaries(teiLists);
+                evaluateDuplicateBeneficiaries(onlineBeneficiaries);
               setData(duplicateTrackedEntityInstances);
             },
             (error: any) => {
