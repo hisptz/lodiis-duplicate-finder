@@ -3,6 +3,7 @@ import { OrganisationUnit } from "@hisptz/dhis2-utils";
 import { useEffect, useState } from "react";
 import { map, flattenDeep } from "lodash";
 import { mapLimit } from "async-es";
+import i18n from "@dhis2/d2-i18n";
 
 import {
   DUPLICATE_BENEFICIARIES_PAGES_QUERY,
@@ -20,6 +21,8 @@ export function useDuplicateBeneficiaries(
   organisationUnits: OrganisationUnit[]
 ) {
   const [data, setData] = useState<any[] | null>(null);
+  const [downloadProgress, setDownloadProgress] = useState<number | null>(null);
+  const [progressMessage, setProgressMessage] = useState<string | null>(null);
   const [error, setError] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -37,6 +40,15 @@ export function useDuplicateBeneficiaries(
     }
     return pages;
   };
+
+  const getCurrentProgress = (
+    totalItems: number,
+    currentPage: number
+  ): number =>
+    Math.ceil(
+      (currentPage / (Math.ceil(totalItems / teiPageSize) ?? (1 as number))) *
+        100
+    );
 
   const getTrackedEntityInstances = async (
     page: number
@@ -66,10 +78,13 @@ export function useDuplicateBeneficiaries(
 
   useEffect(() => {
     async function fetchData() {
+      setDownloadProgress(null);
+      setProgressMessage(null);
       var duplicateTrackedEntityInstances: any[] = [];
       try {
         setLoading(true);
-        engine
+        setProgressMessage(i18n.t("Discovering online beneficiaries..."));
+        await engine
           .query(DUPLICATE_BENEFICIARIES_PAGES_QUERY, {
             variables: {
               program: programId,
@@ -78,14 +93,22 @@ export function useDuplicateBeneficiaries(
           })
           .then(
             async (data: any) => {
+              setProgressMessage(i18n.t("Downloading online beneficiaries..."));
               const { pager } = (data.query as any) ?? {};
+              let receivedPages = 0;
+              const totalPages = getTrackedEntityInstancePages(
+                pager.total ?? 0
+              );
               var onlineBeneficiaries = await mapLimit(
-                getTrackedEntityInstancePages(pager.total ?? 0),
+                totalPages,
                 5,
                 async (page: number) => {
                   return getTrackedEntityInstances(page).then(
                     (trackedEntityInstances: TrackedEntityInstance[]) => {
-                      // TODO evaluate progress
+                      ++receivedPages;
+                      setDownloadProgress(
+                        getCurrentProgress(pager.total, receivedPages)
+                      );
                       var sanitizedBeneficiaries: any[] =
                         getSanitizedBeneficiariesList(trackedEntityInstances);
                       return sanitizedBeneficiaries;
@@ -94,6 +117,9 @@ export function useDuplicateBeneficiaries(
                 }
               );
               onlineBeneficiaries = flattenDeep(onlineBeneficiaries);
+              setProgressMessage(
+                i18n.t("Evaluating duplicate beneficiaries...")
+              );
               duplicateTrackedEntityInstances =
                 evaluateDuplicateBeneficiaries(onlineBeneficiaries);
               setData(duplicateTrackedEntityInstances);
@@ -106,11 +132,13 @@ export function useDuplicateBeneficiaries(
         setError(error);
       } finally {
         setLoading(false);
+        setDownloadProgress(null);
+        setProgressMessage(null);
       }
     }
 
     fetchData();
   }, [programId, organisationUnits]);
 
-  return { data, error, loading };
+  return { data, error, loading, progressMessage, downloadProgress };
 }

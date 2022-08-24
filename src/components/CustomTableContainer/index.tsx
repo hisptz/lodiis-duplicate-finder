@@ -21,7 +21,7 @@ export default function CustomTableContainer(
       ) : (
         <div className={classes["center"]}>
           {i18n.t(
-            "Select Program and Organisation unit above, to evaluate duplicates"
+            "Select Program and Organisation unit above to evaluate duplicates"
           )}
         </div>
       )}

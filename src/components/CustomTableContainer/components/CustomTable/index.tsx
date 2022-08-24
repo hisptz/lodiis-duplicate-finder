@@ -10,6 +10,7 @@ import {
   TableHead,
   TableRow,
   TableRowHead,
+  CircularLoader,
 } from "@dhis2/ui";
 import { keys, values, capitalize, map, camelCase } from "lodash";
 
@@ -34,10 +35,11 @@ function getHeaderKey(header: string): string {
 export default function CustomTable(
   selectionDimension: SelectionDimension
 ): React.ReactElement {
-  const { data, loading, error } = useDuplicateBeneficiaries(
-    selectionDimension?.program?.id ?? "",
-    selectionDimension?.orgUnit?.orgUnits ?? []
-  );
+  const { data, loading, error, progressMessage, downloadProgress } =
+    useDuplicateBeneficiaries(
+      selectionDimension?.program?.id ?? "",
+      selectionDimension?.orgUnit?.orgUnits ?? []
+    );
 
   return (
     <div>
@@ -50,8 +52,38 @@ export default function CustomTable(
         maxWidth="90%"
       />
 
-      {loading && loading === true && <div>loading...</div>}
-      {data && loading === false && (
+      {loading && (
+        <>
+          <div>
+            <div className="w-100">
+              <div
+                style={{
+                  width: "100%",
+                  height: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  minHeight: 250,
+                }}
+              >
+                <div>
+                  <CircularLoader small />
+                </div>
+                <div style={{ marginTop: "16px" }}>
+                  {progressMessage && (
+                    <span>
+                      {progressMessage}{" "}
+                      {downloadProgress && <span>{downloadProgress}%</span>}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+      {data && !loading && (
         <div className={classes["table-container"]}>
           <Table>
             <TableHead>

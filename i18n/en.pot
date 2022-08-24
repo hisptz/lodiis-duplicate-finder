@@ -5,14 +5,23 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-08-22T08:29:18.687Z\n"
-"PO-Revision-Date: 2022-08-22T08:29:18.687Z\n"
+"POT-Creation-Date: 2022-08-24T10:05:25.125Z\n"
+"PO-Revision-Date: 2022-08-24T10:05:25.125Z\n"
 
 msgid "Duplicate Beneficiaries in"
 msgstr "Duplicate Beneficiaries in"
 
-msgid "Select Program and Organisation unit above"
-msgstr "Select Program and Organisation unit above"
+msgid "Select Program and Organisation unit above, to evaluate duplicates"
+msgstr "Select Program and Organisation unit above, to evaluate duplicates"
 
 msgid "Select Program"
 msgstr "Select Program"
+
+msgid "Discovering Online Beneficiaries..."
+msgstr "Discovering Online Beneficiaries..."
+
+msgid "Downloading Online Beneficiaries"
+msgstr "Downloading Online Beneficiaries"
+
+msgid "Evaluating duplicate Beneficiaries"
+msgstr "Evaluating duplicate Beneficiaries"
