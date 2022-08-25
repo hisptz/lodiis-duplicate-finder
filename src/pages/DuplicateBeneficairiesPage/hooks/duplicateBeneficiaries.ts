@@ -8,9 +8,9 @@ import i18n from "@dhis2/d2-i18n";
 import {
   DUPLICATE_BENEFICIARIES_PAGES_QUERY,
   TRACKED_ENTITY_INSTANCE_QUERY,
-} from "../constants";
-import { TrackedEntityInstance } from "../interfaces";
-import { teiPageSize } from "../constants/pagination.constants";
+} from "../../../constants";
+import { TrackedEntityInstance } from "../../../interfaces";
+import { teiPageSize } from "../../../constants/pagination.constants";
 import {
   evaluateDuplicateBeneficiaries,
   getSanitizedBeneficiariesList,

@@ -12,13 +12,13 @@ import {
 import {
   DUPLICATION_ATTRIBUTES_CONSTANT,
   DUPLICATION_IDENTIFICATION_KEYS,
-} from "../constants/trackedEntity.constants";
+} from "../../../constants/trackedEntity.constants";
 import {
   Attribute,
   Enrollment,
   Event,
   TrackedEntityInstance,
-} from "../interfaces";
+} from "../../../interfaces";
 
 const DUPLICATE_KEY_ATTRIBUTE = "Duplication Key";
 
