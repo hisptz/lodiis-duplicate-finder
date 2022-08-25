@@ -14,6 +14,10 @@ import {
   Pagination,
   ButtonStrip,
   Button,
+  DataTable,
+  DataTableRow,
+  DataTableColumnHeader,
+  DataTableCell,
 } from "@dhis2/ui";
 import { keys, values, capitalize, map, camelCase, chunk } from "lodash";
 
@@ -124,34 +128,40 @@ export default function CustomTable(
               </ButtonStrip>
             </div>
             <div className={classes["table-container"]}>
-              <Table>
-                <TableHead>
-                  <TableRowHead fixed>
+              <DataTable>
+                <TableHead className={classes["table-head"]}>
+                  <DataTableRow>
                     {getTableHeaders(data).map((header: string) => (
-                      <TableCellHead
-                        className={classes["table-header"]}
+                      <DataTableColumnHeader
+                        className={classes["table-value"]}
                         dataTest={`${getHeaderKey(header)}-column`}
                         key={`${getHeaderKey(header)}-column-header`}
                       >
                         {header}
-                      </TableCellHead>
+                      </DataTableColumnHeader>
                     ))}
-                  </TableRowHead>
+                  </DataTableRow>
                 </TableHead>
-                <TableBody>
+                <TableBody className={classes["table-body"]}>
                   {getTableDataRows(getPaginatedData()).map(
                     (dataRow, index) => (
-                      <TableRow key={`row-${index}`}>
+                      <DataTableRow
+                        className={classes["table-row"]}
+                        key={`row-${index}`}
+                      >
                         {dataRow.map((tableDataItem, index) => (
-                          <TableCell key={`row-${index}-cell-${index}`}>
+                          <DataTableCell
+                            className={classes["table-value"]}
+                            key={`row-${index}-cell-${index}`}
+                          >
                             {tableDataItem}
-                          </TableCell>
+                          </DataTableCell>
                         ))}
-                      </TableRow>
+                      </DataTableRow>
                     )
                   )}
                 </TableBody>
-              </Table>
+              </DataTable>
             </div>
             <div style={{ width: "100%", marginTop: "8px" }}>
               <Pagination

@@ -1,1 +1,1 @@
-export const teiPageSize = 1000;
+export const teiPageSize = 500;

@@ -1,9 +1,26 @@
 .table-container {
     width: 100%;
-    overflow-x: auto;
+    table-layout: fixed;
+    border-collapse: collapse;
     margin-top: 8px;
+    overflow-x: auto !important;
 }
 
-.table-header {
-    min-width: 160px;
+.table-value {
+    width: 10vw !important;
+    word-wrap: break-word;
 }
+
+.table-body {
+    display: block;
+    min-height: 10vh;
+    max-height: 50vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.table-head, .table-row {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
