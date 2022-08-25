@@ -19,7 +19,7 @@ export default function DuplicateBeneficiariesContainer(
           </div>
         </div>
       ) : (
-        <div className={classes["center"]}>
+        <div className={classes["message"]}>
           {i18n.t(
             "Select Program and Organisation unit above to evaluate duplicates"
           )}
