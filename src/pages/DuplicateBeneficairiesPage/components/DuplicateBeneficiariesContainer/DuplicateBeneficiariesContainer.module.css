@@ -11,3 +11,10 @@
     margin: 0 auto;
     text-align: center;
 }
+
+
+.message {
+    margin: 20vh auto;
+    font-size: large !important;
+    text-align: center;
+}

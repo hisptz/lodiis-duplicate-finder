@@ -76,6 +76,7 @@ export default function TableContainer(
           <>
             <div className="w-100">
               <div
+                className={classes["centered-message"]}
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -102,13 +103,13 @@ export default function TableContainer(
         ) : data && data.length > 0 ? (
           <CustomTable {...tableParams}></CustomTable>
         ) : data && data.length == 0 ? (
-          <div>
+          <div className={classes["centered-message"]}>
             {i18n.t("There are no duplicates found for the current selections")}
           </div>
         ) : error ? (
-          <div className="w-100">
+          <div style={{ textAlign: "start" }}>
             <NoticeBox error title={i18n.t("Failed to load beneficiaries")}>
-              {error}
+              {error.toString()}
             </NoticeBox>
           </div>
         ) : (

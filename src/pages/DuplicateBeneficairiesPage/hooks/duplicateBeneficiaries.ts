@@ -119,6 +119,10 @@ export function useDuplicateBeneficiaries(
                       var sanitizedBeneficiaries: any[] =
                         getSanitizedBeneficiariesList(trackedEntityInstances);
                       return sanitizedBeneficiaries;
+                    },
+                    (error: any) => {
+                      console.log(error);
+                      setError(error);
                     }
                   );
                 }
