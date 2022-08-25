@@ -5,14 +5,17 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-08-24T16:03:51.507Z\n"
-"PO-Revision-Date: 2022-08-24T16:03:51.507Z\n"
+"POT-Creation-Date: 2022-08-25T12:28:50.757Z\n"
+"PO-Revision-Date: 2022-08-25T12:28:50.757Z\n"
 
-msgid "Duplicate Beneficiaries in"
-msgstr "Duplicate Beneficiaries in"
+msgid "Select Program"
+msgstr "Select Program"
 
 msgid "Download"
 msgstr "Download"
+
+msgid "Duplicate Beneficiaries in"
+msgstr "Duplicate Beneficiaries in"
 
 msgid "There are no duplicates found for the current selections"
 msgstr "There are no duplicates found for the current selections"
@@ -22,9 +25,6 @@ msgstr "Failed to load beneficiaries"
 
 msgid "Select Program and Organisation unit above to evaluate duplicates"
 msgstr "Select Program and Organisation unit above to evaluate duplicates"
-
-msgid "Select Program"
-msgstr "Select Program"
 
 msgid "Discovering online beneficiaries..."
 msgstr "Discovering online beneficiaries..."

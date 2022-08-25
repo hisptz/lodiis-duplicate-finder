@@ -7,7 +7,7 @@ import { OrgUnitSelectorModal } from "@hisptz/react-ui";
 import { isEmpty } from "lodash";
 import { OrgUnitSelection } from "@hisptz/dhis2-utils";
 import ProgramSelection from "./components/ProgramSelection";
-import { getOrgUnitStringLabel } from "../../helpers/DataSelectionHelpers";
+import { getOrgUnitStringLabel } from "../../helpers/dataSelectionsHelpers";
 
 const orgUnitModalProps: Record<string, any> = {
   searchable: true,
