@@ -14,7 +14,7 @@ import {
   Radio,
 } from "@dhis2/ui";
 import { find } from "lodash";
-import { PROGRAMS_QUERY } from "../../../../constants/queries.constants";
+import { PROGRAMS_QUERY } from "../../../../../../constants/queries.constants";
 import { Program } from "../../interfaces";
 
 const getSelectedProgram = (

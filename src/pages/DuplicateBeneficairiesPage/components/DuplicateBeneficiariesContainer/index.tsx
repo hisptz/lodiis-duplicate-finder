@@ -2,10 +2,10 @@ import React from "react";
 import i18n from "@dhis2/d2-i18n";
 
 import { SelectionDimension } from "../DataSelectionContainer/interfaces";
-import classes from "./CustomTableContainer.module.css";
-import CustomTable from "./components/CustomTable";
+import TableContainer from "./components/TableContainer";
+import classes from "./DuplicateBeneficiariesContainer.module.css";
 
-export default function CustomTableContainer(
+export default function DuplicateBeneficiariesContainer(
   selectionDimension: SelectionDimension | undefined
 ): React.ReactElement {
   return (
@@ -15,7 +15,7 @@ export default function CustomTableContainer(
       selectionDimension.program ? (
         <div>
           <div className={classes["center"]}>
-            <CustomTable {...selectionDimension}></CustomTable>
+            <TableContainer {...selectionDimension}></TableContainer>
           </div>
         </div>
       ) : (
