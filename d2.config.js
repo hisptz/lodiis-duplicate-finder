@@ -1,6 +1,6 @@
 const config = {
   type: "app",
-  name: "Duplicate beneficiaries Finder",
+  name: "Duplicate Beneficiaries Evaluator",
   entryPoints: {
     app: "./src/App.tsx",
   },
