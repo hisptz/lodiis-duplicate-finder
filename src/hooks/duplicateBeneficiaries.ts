@@ -14,7 +14,7 @@ import { teiPageSize } from "../constants/pagination.constants";
 import {
   evaluateDuplicateBeneficiaries,
   getSanitizedBeneficiariesList,
-} from "../helpers/duplicateBeneficiariesHelper";
+} from "../helpers/duplicateBeneficiariesHelpers";
 
 export function useDuplicateBeneficiaries(
   programId: string,
