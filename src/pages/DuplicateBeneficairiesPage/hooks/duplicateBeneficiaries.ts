@@ -144,7 +144,7 @@ export function useDuplicateBeneficiaries(
 
     setTimeout(() => {
       fetchData();
-    }, 500);
+    }, 300);
 
     return () => {
       controller.abort();
