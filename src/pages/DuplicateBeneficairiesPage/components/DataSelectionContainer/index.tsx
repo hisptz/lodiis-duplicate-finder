@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Card, Box } from "@dhis2/ui";
-import DataSelection from "./components/DataSelection";
-import classes from "./DataSelectionContainer.module.css";
-import { DataSelectionContainerProps, Program } from "./interfaces";
 import { OrgUnitSelectorModal } from "@hisptz/react-ui";
 import { isEmpty } from "lodash";
 import { OrgUnitSelection } from "@hisptz/dhis2-utils";
+import i18n from "@dhis2/d2-i18n";
+
+import DataSelection from "./components/DataSelection";
+import classes from "./DataSelectionContainer.module.css";
+import { DataSelectionContainerProps, Program } from "./interfaces";
 import ProgramSelection from "./components/ProgramSelection";
 import { getOrgUnitStringLabel } from "../../helpers/dataSelectionsHelpers";
 
@@ -52,14 +54,14 @@ export default function DataSelectionContainer({
               <div className={classes["selection-item"]}>
                 <DataSelection
                   onChangeSelection={() => onDataSelectionChange("program")}
-                  label="Select Program"
+                  label={i18n.t("Select Program")}
                   value={selections?.program?.displayName ?? ""}
                 />
               </div>
               <div className={classes["selection-item"]}>
                 <DataSelection
                   onChangeSelection={() => onDataSelectionChange("orgUnit")}
-                  label="Select Organisation Unit"
+                  label={i18n.t("Select Organisation Unit")}
                   value={getOrgUnitStringLabel(selections?.orgUnit ?? {})}
                 />
               </div>
