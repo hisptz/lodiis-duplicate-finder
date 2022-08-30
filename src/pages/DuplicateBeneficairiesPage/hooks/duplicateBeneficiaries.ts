@@ -121,7 +121,6 @@ export function useDuplicateBeneficiaries(
                       return sanitizedBeneficiaries;
                     },
                     (error: any) => {
-                      console.log(error);
                       setError(error);
                     }
                   );
