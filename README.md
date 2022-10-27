@@ -1,45 +1,110 @@
-This project was bootstrapped with [DHIS2 Application Platform](https://github.com/dhis2/app-platform).
+# KB DUPLICATE FINDER
 
-## Available Scripts
+## Contents
+1.  #### [About](#about)
+2.  #### [Pre-requisites](#preRequisites)
+3.  #### [Project setup](#setup)
+4.  #### [Running the app](#run)
+5.  #### [Building and Deploying app](#build)
 
-In the project directory, you can run:
 
-### `yarn start`
+## <a name='about'></a>1. About
+This is a web application that evaluates the possible duplicates for different KB interventions. Based on the selected program and organisation unit, the app is expected to evaluate possible duplicate beneficiaries and allow download of the beneficiaries.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## <a name='preRequisites'></a>2. Pre-requisites
+The project requires the following environment prerequisites to get started:
 
-### `yarn test`
+```
+node 16.13.2
+npm 8.3.2
+react 17.0.2
+```
 
-Launches the test runner and runs all available tests found in `/src`.<br />
 
-See the section about [running tests](https://platform.dhis2.nu/#/scripts/test) for more information.
+## <a name='setup'></a>3. Project setup
+To get started with this project , follow the following procedure.
 
-### `yarn build`
+<ol>
+<li>Package installations</li>
+<li>Proxy configuration</li>
+</ol>
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-A deployable `.zip` file can be found in `build/bundle`!
+### Package installations
 
-See the section about [building](https://platform.dhis2.nu/#/scripts/build) for more information.
+With the use of <b>yarn</b>, this app  packages are maintained with only one _***package.json***_. <br>
+ To get started with package installations, Use the command: 
+```
+yarn 
+```
+or 
+```
+yarn add
+```
 
-### `yarn deploy`
+### Proxy configuration
 
-Deploys the built app in the `build` folder to a running DHIS2 instance.<br />
-This command will prompt you to enter a server URL as well as the username and password of a DHIS2 user with the App Management authority.<br/>
-You must run `yarn build` before running `yarn deploy`.<br />
+In order to start the development server for the EAC integration app, there has to be a set proxy to the server hosting the DHIS2 instance. 
 
-See the section about [deploying](https://platform.dhis2.nu/#/scripts/deploy) for more information.
+<ul>
+  <li>
+    The proxy is configured adding DHIS2 instance server url in app start script as shown below:
 
-## Learn More
+```
+  {
+    "start": "d2-app-scripts start --proxy <url_to_dhis_instance>"
+  }
+```
+  </li>
 
-You can learn more about the platform in the [DHIS2 Application Platform Documentation](https://platform.dhis2.nu/).
+  <li>
+    Additionally, on the root folder a <code>.env</code> file should be crated with the content as <code>.env.example</code> for creating base url:
 
-You can learn more about the runtime in the [DHIS2 Application Runtime Documentation](https://runtime.dhis2.nu/).
+```
+  REACT_APP_DHIS2_BASE_URL=http://localhost:8080
+```
+  </li>
+  </li>
+</ul>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+
+## <a name='run'></a>4. Running the app
+
+The apps are run differently using the script commands that are specified on the root _***package.json***_.
+
+<ul>
+<li>Use the following command to run the project<br>
+
+```
+yarn start
+```
+ </li>
+
+</ul>
+
+
+
+## <a name='build'></a>5. Building and Deploying app
+
+
+On the similar note, the apps are also build separately as specified in the root _package.json_.
+
+<ul>
+<li>Build the app<br>
+
+```
+yarn build
+```
+This will create a zip folder in build file, use it to deploy into instance or use bellow command to deploy automatic.
+  </li>
+  
+<li>
+Deploy the app<br>
+
+```
+yarn deploy
+```
+This command will prompt for respective credentials as the result of above command effectively.
+</li>
+</ul>
