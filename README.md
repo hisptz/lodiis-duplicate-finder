@@ -9,7 +9,7 @@
 
 
 ## <a name='about'></a>1. About
-This is a web application that evaluates the possible duplicates for different KB interventions. Based on the selected program and organisation unit, the app is expected to evaluate possible duplicate beneficiaries and allow download of the beneficiaries.
+This is a web application that evaluates the possible duplicates for different KB interventions. Based on the selected program and organization unit, the app is expected to evaluate possible duplicate beneficiaries and allow the download of the beneficiaries.
 
 
 ## <a name='preRequisites'></a>2. Pre-requisites
@@ -23,7 +23,7 @@ react 17.0.2
 
 
 ## <a name='setup'></a>3. Project setup
-To get started with this project , follow the following procedure.
+To get started with this project, follow the following procedure.
 
 <ol>
 <li>Package installations</li>
@@ -33,7 +33,7 @@ To get started with this project , follow the following procedure.
 
 ### Package installations
 
-With the use of <b>yarn</b>, this app  packages are maintained with only one _***package.json***_. <br>
+With the use of <b>yarn</b>, these app  packages are maintained with only one _***package.json***_. <br>
  To get started with package installations, Use the command: 
 ```
 yarn 
@@ -45,11 +45,11 @@ yarn add
 
 ### Proxy configuration
 
-In order to start the development server for the EAC integration app, there has to be a set proxy to the server hosting the DHIS2 instance. 
+In order to start the development server for the KB duplicate finder, there has to be a set proxy to the server hosting the DHIS2 instance. 
 
 <ul>
   <li>
-    The proxy is configured adding DHIS2 instance server url in app start script as shown below:
+    The proxy is configured by adding the DHIS2 instance server URL in the app start script as shown below:
 
 ```
   {
@@ -85,10 +85,10 @@ yarn start
 
 
 
-## <a name='build'></a>5. Building and Deploying app
+## <a name='build'></a>5. Building and Deploying an app
 
 
-On the similar note, the apps are also build separately as specified in the root _package.json_.
+On a similar note, the apps are also built separately as specified in the root _package.json_.
 
 <ul>
 <li>Build the app<br>
@@ -96,7 +96,7 @@ On the similar note, the apps are also build separately as specified in the root
 ```
 yarn build
 ```
-This will create a zip folder in build file, use it to deploy into instance or use bellow command to deploy automatic.
+This will create a zip folder in the build file, use it to deploy into instances or use the bellow command to deploy automatically.
   </li>
   
 <li>
@@ -105,6 +105,6 @@ Deploy the app<br>
 ```
 yarn deploy
 ```
-This command will prompt for respective credentials as the result of above command effectively.
+This command will prompt for respective credentials as the result of the above command effectively.
 </li>
 </ul>
