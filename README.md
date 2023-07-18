@@ -1,4 +1,4 @@
-# KB DUPLICATE FINDER
+# LODIIS DUPLICATE FINDER
 
 ## Contents
 1.  #### [About](#about)
@@ -9,7 +9,7 @@
 
 
 ## <a name='about'></a>1. About
-This is a web application that evaluates the possible duplicates for different KB interventions. Based on the selected program and organization unit, the app is expected to evaluate possible duplicate beneficiaries and allow the download of the beneficiaries.
+This is a web application that evaluates the possible duplicates for different lodiis interventions. Based on the selected program and organization unit, the app is expected to evaluate possible duplicate beneficiaries and allow the download of the beneficiaries.
 
 
 ## <a name='preRequisites'></a>2. Pre-requisites
@@ -45,7 +45,7 @@ yarn add
 
 ### Proxy configuration
 
-In order to start the development server for the KB duplicate finder, there has to be a set proxy to the server hosting the DHIS2 instance. 
+In order to start the development server for the LODIIS duplicate finder, there has to be a set proxy to the server hosting the DHIS2 instance. 
 
 <ul>
   <li>
