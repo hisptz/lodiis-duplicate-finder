@@ -1,49 +1,49 @@
-import React, { useState } from "react";
-import { Card, Box } from "@dhis2/ui";
-import { OrgUnitSelectorModal } from "@hisptz/react-ui";
-import { isEmpty } from "lodash";
-import { OrgUnitSelection } from "@hisptz/dhis2-utils";
-import i18n from "@dhis2/d2-i18n";
+import React, { useState } from "react"
+import { Card, Box } from "@dhis2/ui"
+import { OrgUnitSelectorModal } from "@hisptz/react-ui"
+import { isEmpty } from "lodash"
+import { OrgUnitSelection } from "@hisptz/dhis2-utils"
+import i18n from "@dhis2/d2-i18n"
 
-import DataSelection from "./components/DataSelection";
-import classes from "./DataSelectionContainer.module.css";
-import { DataSelectionContainerProps, Program } from "./interfaces";
-import ProgramSelection from "./components/ProgramSelection";
-import { getOrgUnitStringLabel } from "../../helpers/dataSelectionsHelpers";
+import DataSelection from "./components/DataSelection"
+import classes from "./DataSelectionContainer.module.css"
+import { DataSelectionContainerProps, Program } from "./interfaces"
+import ProgramSelection from "./components/ProgramSelection"
+import { getOrgUnitStringLabel } from "../../helpers/dataSelectionsHelpers"
 
 const orgUnitModalProps: Record<string, any> = {
   searchable: true,
-};
+}
 
 export default function DataSelectionContainer({
   onChangeSelection,
   selections,
 }: DataSelectionContainerProps): React.ReactElement {
-  const [ModalOpen, setModalOpen] = useState<string | undefined>();
+  const [ModalOpen, setModalOpen] = useState<string | undefined>()
   const { orgUnit: orgUnitSelection, program: programSelection } =
-    selections ?? {};
+    selections ?? {}
 
-  const onCloseModal = () => setModalOpen(undefined);
+  const onCloseModal = () => setModalOpen(undefined)
 
   const onModalSelectionChange =
     (setter: (value: any) => any) => (value: any) => {
-      setter(value);
-      onCloseModal();
-    };
+      setter(value)
+      onCloseModal()
+    }
 
   const onProgramChange = (program: Program) => {
     if (!isEmpty(program)) {
-      onChangeSelection({ ...selections, program });
+      onChangeSelection({ ...selections, program })
     }
-  };
+  }
 
   const onOrgUnitChange = (orgUnit: OrgUnitSelection) => {
     if (!isEmpty(orgUnit.orgUnits)) {
-      onChangeSelection({ ...selections, orgUnit });
+      onChangeSelection({ ...selections, orgUnit })
     }
-  };
+  }
 
-  const onDataSelectionChange = (selection: string) => setModalOpen(selection);
+  const onDataSelectionChange = (selection: string) => setModalOpen(selection)
 
   return (
     <div>
@@ -91,5 +91,5 @@ export default function DataSelectionContainer({
         />
       )}
     </div>
-  );
+  )
 }
