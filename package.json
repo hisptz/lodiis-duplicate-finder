@@ -19,7 +19,8 @@
     "@types/async": "^3.2.20",
     "@types/lodash": "^4.14.197",
     "@types/luxon": "^3.3.1",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "caniuse-lite": "^1.0.30001524"
   },
   "dependencies": {
     "@dhis2/app-runtime": "^3.9.4",
