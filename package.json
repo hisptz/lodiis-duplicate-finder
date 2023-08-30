@@ -11,6 +11,7 @@
     "deploy": "d2-app-scripts deploy"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@dhis2/cli-app-scripts": "^10.3.10",
     "@dhis2/cli-style": "^10.5.1",
     "@dhis2/cli-utils-cypress": "^10.0.3",
@@ -19,8 +20,8 @@
     "@types/async": "^3.2.20",
     "@types/lodash": "^4.14.197",
     "@types/luxon": "^3.3.1",
-    "typescript": "^5.2.2",
-    "caniuse-lite": "^1.0.30001524"
+    "caniuse-lite": "^1.0.30001524",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
     "@dhis2/app-runtime": "^3.9.4",
