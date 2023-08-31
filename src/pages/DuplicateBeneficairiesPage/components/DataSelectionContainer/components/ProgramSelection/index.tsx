@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useDataQuery } from "@dhis2/app-runtime";
-import i18n from "@dhis2/d2-i18n";
+import React, { useState } from "react"
+import { useDataQuery } from "@dhis2/app-runtime"
+import i18n from "@dhis2/d2-i18n"
 import {
   Modal,
   ModalTitle,
@@ -12,10 +12,10 @@ import {
   Cover,
   Center,
   Radio,
-} from "@dhis2/ui";
-import { find } from "lodash";
-import { PROGRAMS_QUERY } from "../../../../../../constants/queries.constants";
-import { Program } from "../../interfaces";
+} from "@dhis2/ui"
+import { find } from "lodash"
+import { PROGRAMS_QUERY } from "../../../../../../constants/queries.constants"
+import { Program } from "../../interfaces"
 
 const getSelectedProgram = (
   programId: string | undefined,
@@ -23,8 +23,8 @@ const getSelectedProgram = (
 ): Program | null | undefined => {
   return programId
     ? find(programs, (program: Program) => program.id == programId)
-    : null;
-};
+    : null
+}
 
 export default function ProgramSelection({
   hide,
@@ -33,19 +33,23 @@ export default function ProgramSelection({
   onUpdate,
   ...props
 }: {
-  value?: string;
-  onUpdate: (value: Program | null | undefined) => void;
-  hide: boolean;
-  onClose: () => void;
-  [key: string]: any;
+  value?: string
+  onUpdate: (value: Program | null | undefined) => void
+  hide: boolean
+  onClose: () => void
+  [key: string]: any
 }): React.ReactElement {
-  const [selectedProgram, setSelectedProgram] = useState(value);
-  const { loading, error, data } = useDataQuery(PROGRAMS_QUERY);
+  const [selectedProgram, setSelectedProgram] = useState(value)
+  const { loading, error, data } = useDataQuery(PROGRAMS_QUERY)
 
-  const onSelectProgram = (id: string) => setSelectedProgram(id);
+  const onSelectProgram = (id: string) => setSelectedProgram(id)
 
   return (
-    <Modal hide={hide} onClose={onClose} {...props}>
+    <Modal
+      hide={hide}
+      onClose={onClose}
+      {...props}
+    >
       <ModalTitle>{i18n.t("Select Program")}</ModalTitle>
       <ModalContent>
         {loading && (
@@ -55,7 +59,7 @@ export default function ProgramSelection({
             </Center>
           </Cover>
         )}
-        {error && <span>{`ERROR: ${error.message}`}</span>}
+        {error && <span>{`ERROR: ${error.message} testing`}</span>}
         {data && (
           <div>
             {((data?.programsQuery as any).programs ?? []).map(
@@ -66,7 +70,7 @@ export default function ProgramSelection({
                     label={program.displayName}
                     name={program.id}
                     onChange={() => {
-                      onSelectProgram(program.id);
+                      onSelectProgram(program.id)
                     }}
                     value={program.id}
                   />
@@ -78,7 +82,10 @@ export default function ProgramSelection({
       </ModalContent>
       <ModalActions>
         <ButtonStrip end>
-          <Button onClick={() => onClose()} secondary>
+          <Button
+            onClick={() => onClose()}
+            secondary
+          >
             Cancel
           </Button>
           <Button
@@ -97,5 +104,5 @@ export default function ProgramSelection({
         </ButtonStrip>
       </ModalActions>
     </Modal>
-  );
+  )
 }

@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import CustomTableContainer from "./components/DuplicateBeneficiariesContainer";
-import DataSelectionContainer from "./components/DataSelectionContainer";
-import { SelectionDimension } from "./components/DataSelectionContainer/interfaces";
+import React, { useState } from "react"
+import CustomTableContainer from "./components/DuplicateBeneficiariesContainer"
+import DataSelectionContainer from "./components/DataSelectionContainer"
+import { SelectionDimension } from "./components/DataSelectionContainer/interfaces"
 
 export function DuplicateBeneficiariesPage(): React.ReactElement {
   const [dataSelection, setDataSelection] = useState<
     SelectionDimension | undefined
-  >();
+  >()
   return (
     <>
       <DataSelectionContainer
@@ -15,5 +15,5 @@ export function DuplicateBeneficiariesPage(): React.ReactElement {
       />
       <CustomTableContainer {...dataSelection} />
     </>
-  );
+  )
 }

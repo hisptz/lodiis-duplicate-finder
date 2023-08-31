@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import i18n from "@dhis2/d2-i18n";
-import { Tag, CircularLoader, NoticeBox } from "@dhis2/ui";
-import { chunk } from "lodash";
+import React, { useState } from "react"
+import i18n from "@dhis2/d2-i18n"
+import { Tag, CircularLoader, NoticeBox } from "@dhis2/ui"
+import { chunk } from "lodash"
 
-import { SelectionDimension } from "../../../DataSelectionContainer/interfaces";
-import { useDuplicateBeneficiaries } from "../../../../hooks/duplicateBeneficiaries";
-import CustomTable from "../CustomTable";
-import classes from "./TableContainer.module.css";
+import { SelectionDimension } from "../../../DataSelectionContainer/interfaces"
+import { useDuplicateBeneficiaries } from "../../../../hooks/duplicateBeneficiaries"
+import CustomTable from "../CustomTable"
+import classes from "./TableContainer.module.css"
 
 async function onDownload(data: any, fileName: string) {
-  const excel = await import("xlsx");
-  const workbook = excel.utils.book_new();
-  const worksheet = excel.utils.json_to_sheet(data);
-  excel.utils.book_append_sheet(workbook, worksheet, "Duplicate Beneficiaries");
-  excel.writeFile(workbook, `${fileName}.xlsx`);
+  const excel = await import("xlsx")
+  const workbook = excel.utils.book_new()
+  const worksheet = excel.utils.json_to_sheet(data)
+  excel.utils.book_append_sheet(workbook, worksheet, "Duplicate Beneficiaries")
+  excel.writeFile(workbook, `${fileName}.xlsx`)
 }
 
 export default function TableContainer(
@@ -23,30 +23,30 @@ export default function TableContainer(
     "Duplicate Beneficiaries in"
   )} ${selectionDimension.orgUnit?.orgUnits
     ?.map((ou: any) => ou.displayName)
-    .join(", ")}`;
+    .join(", ")}`
 
   const { data, loading, error, progressMessage, downloadProgress } =
     useDuplicateBeneficiaries(
       selectionDimension?.program?.id ?? "",
       selectionDimension?.orgUnit?.orgUnits ?? []
-    );
+    )
 
-  const [page, setPage] = useState<number>(1);
-  const [pageSize, setPageSize] = useState<number>(50);
+  const [page, setPage] = useState<number>(1)
+  const [pageSize, setPageSize] = useState<number>(50)
 
   const getTotalPages = (customSize?: number) =>
-    Math.ceil((data ?? []).length / (customSize ?? pageSize));
+    Math.ceil((data ?? []).length / (customSize ?? pageSize))
 
   const getPaginatedData = (): any[] => {
-    let currentPage = page;
-    const totalPages = getTotalPages();
+    let currentPage = page
+    const totalPages = getTotalPages()
     if (totalPages < currentPage) {
-      currentPage = (data ?? []).length;
+      currentPage = (data ?? []).length
     } else if (totalPages < 1) {
-      currentPage = 1;
+      currentPage = 1
     }
-    return chunk(data, pageSize)[page - 1];
-  };
+    return chunk(data, pageSize)[page - 1]
+  }
 
   const tableParams = {
     data: getPaginatedData(),
@@ -57,16 +57,19 @@ export default function TableContainer(
     onChangePage: (pageNumber: number) => setPage(pageNumber),
     onChangePageSize: (size: number) => {
       if (getTotalPages(size) < page) {
-        setPage(1);
+        setPage(1)
       }
-      setPageSize(size);
+      setPageSize(size)
     },
     onDownloadData: () => onDownload(data, tableTitle),
-  };
+  }
 
   return (
     <div className={classes["center"]}>
-      <Tag children={tableTitle} maxWidth="90%" />
+      <Tag
+        children={tableTitle}
+        maxWidth="90%"
+      />
       <div
         style={{
           marginTop: "16px",
@@ -108,7 +111,10 @@ export default function TableContainer(
           </div>
         ) : error ? (
           <div style={{ textAlign: "start" }}>
-            <NoticeBox error title={i18n.t("Failed to load beneficiaries")}>
+            <NoticeBox
+              error
+              title={i18n.t("Failed to load beneficiaries")}
+            >
               {error.toString()}
             </NoticeBox>
           </div>
@@ -117,5 +123,5 @@ export default function TableContainer(
         )}
       </div>
     </div>
-  );
+  )
 }
